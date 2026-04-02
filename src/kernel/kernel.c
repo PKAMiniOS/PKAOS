@@ -4,5 +4,10 @@ void kernel_main() {
     clear_screen();
     print("=== Welcome to PKAOS ===\n\n");
     // Treo máy ở đây vì chưa có ngắt bàn phím
+    
+    gdt_init();
+    idt_init(); 
+    isr_init();
+
     while(1);
 }
