@@ -30,6 +30,13 @@ void print(const char* str) {
         if (str[i] == '\n') {
             int current_row = (cursor_offset / 2) / MAX_COLS;
             cursor_offset = (current_row + 1) * MAX_COLS * 2;
+        } else if (str[i] == '\b') {
+            /* Xử lý Backspace - xóa ký tự trước đó */
+            if (cursor_offset >= 2) {
+                cursor_offset -= 2;
+                screen[cursor_offset] = ' ';
+                screen[cursor_offset + 1] = WHITE_ON_BLACK;
+            }
         } else {
             screen[cursor_offset] = str[i];
             screen[cursor_offset+1] = WHITE_ON_BLACK;

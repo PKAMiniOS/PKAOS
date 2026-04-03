@@ -3,6 +3,7 @@
 void kernel_main() {
     clear_screen();
     print("=== Welcome to PKAOS ===\n\n");
-    // Treo máy ở đây vì chưa có ngắt bàn phím
+    init_keyboard();
+    print("Keyboard initialized. Ready for input!\n");
     while(1);
 }
