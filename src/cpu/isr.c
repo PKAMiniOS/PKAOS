@@ -12,16 +12,11 @@ void isr_init() {
 void interrupt_init() {
 
     /* --- PIC Remap --- */
-    outb(0x20, 0x11);
-    outb(0xA0, 0x11);
-    outb(0x21, 0x20);
-    outb(0xA1, 0x28);
-    outb(0x21, 0x04);
-    outb(0xA1, 0x02);
-    outb(0x21, 0x01);
-    outb(0xA1, 0x01);
-    outb(0x21, 0x0);
-    outb(0xA1, 0x0);
+    outb(0x20, 0x11); outb(0xA0, 0x11);
+    outb(0x21, 0x20); outb(0xA1, 0x28);
+    outb(0x21, 0x04); outb(0xA1, 0x02);
+    outb(0x21, 0x01); outb(0xA1, 0x01);
+    outb(0x21, 0x0);  outb(0xA1, 0x0);
 
     /* --- Load ISR --- */
     for (int i = 0; i < 32; i++) {
@@ -42,7 +37,7 @@ void isr_handler(registers_t r) {
     (void)r;
     print("CPU Exception! System halted.\n");
     while (1)
-        ;
+    ;
 }
 
 /* --- IRQ handler --- */
@@ -52,8 +47,7 @@ void irq_handler(registers_t r) {
         outb(0xA0, 0x20);
     outb(0x20, 0x20);
 
-    if (r.int_no == 33)
-    {
+    if (r.int_no == 33) {
         keyboard_handler(r);
     }
 }

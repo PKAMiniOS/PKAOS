@@ -57,9 +57,10 @@ typedef struct {
 
 // Init
 void gdt_init();
-void idt_init();
+void idt_init(); 
 void interrupt_init();
 void isr_init();
+
 // IDT helper
 void idt_set_gate(uint8_t num, uint32_t base, uint16_t sel, uint8_t flags);
 
