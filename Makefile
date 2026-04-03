@@ -37,8 +37,8 @@ pkaos.iso: pkaos.bin
 	grub-mkrescue -o pkaos.iso isodir
 
 # Thêm lệnh run để chạy hệ điều hành trong QEMU
-run: pkaos.iso
-	qemu-system-i386 -cdrom pkaos.iso
+run: pkaos.bin
+	qemu-system-i386 -m 256 -kernel pkaos.bin
 # Thêm lệnh clean để xóa các file tạm và file vừa được biên dịch
 clean:
 	rm -rf $(OBJS) pkaos.bin pkaos.iso isodir

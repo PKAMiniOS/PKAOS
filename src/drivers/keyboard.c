@@ -15,25 +15,28 @@ void init_keyboard() {
 
 void keyboard_handler(registers_t r) {
     (void)r;
-    unsigned char scancode = inb(0x60);
+    
+    // Đọc tất cả scancode trong buffer
+    while (inb(0x64) & 1) {
+        unsigned char scancode = inb(0x60);
+        
+        // Chỉ xử lý phím nhấn (mã nhả có bit 7 = 1)
+        if (scancode & 0x80)
+            continue;
 
-    // Chỉ xử lý phím nhấn (mã nhả có bit 7 = 1)
-    if (scancode & 0x80)
-        return;
-
-    if (scancode == 0x1C) {
-        // Enter
-        putchar('\n');
-    }
-    else if (scancode == 0x0E) {
-        // Backspace
-        backspace();
-    } else if (scancode == 0x39) {
-        // Space
-        putchar(' ');
-    } else if (scancode < 128) {
-        unsigned char ch = kbd_us[scancode];
-        if (ch)
-            putchar(ch); // In ký tự
+        if (scancode == 0x1C) {
+            // Enter
+            putchar('\n');
+        } else if (scancode == 0x0E) {
+            // Backspace
+            backspace();
+        } else if (scancode == 0x39) {
+            // Space
+            putchar(' ');
+        } else if (scancode < 128) {
+            unsigned char ch = kbd_us[scancode];
+            if (ch)
+                putchar(ch); // In ký tự
+        }
     }
 }
