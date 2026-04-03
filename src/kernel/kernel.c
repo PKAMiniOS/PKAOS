@@ -1,7 +1,6 @@
 #include "pkaos.h"
 
-void kernel_main()
-{
+void kernel_main() {
     clear_screen();
     print("=== Welcome to PKAOS ===\n\n");
 
@@ -17,8 +16,7 @@ void kernel_main()
     asm volatile("sti");
 
     // Vòng lặp chính: chờ ngắt, giảm tải CPU
-    while (1)
-    {
+    while (1) {
         asm volatile("hlt");
     }
 }

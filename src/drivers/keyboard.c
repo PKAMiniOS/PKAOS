@@ -9,13 +9,11 @@ static const unsigned char kbd_us[128] = {
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-void init_keyboard()
-{
+void init_keyboard() {
     // Chưa cần khởi tạo gì thêm trong trình điều khiển đơn giản này
 }
 
-void keyboard_handler(registers_t r)
-{
+void keyboard_handler(registers_t r) {
     (void)r;
     unsigned char scancode = inb(0x60);
 
@@ -23,23 +21,17 @@ void keyboard_handler(registers_t r)
     if (scancode & 0x80)
         return;
 
-    if (scancode == 0x1C)
-    {
+    if (scancode == 0x1C) {
         // Enter
         putchar('\n');
     }
-    else if (scancode == 0x0E)
-    {
+    else if (scancode == 0x0E) {
         // Backspace
         backspace();
-    }
-    else if (scancode == 0x39)
-    {
+    } else if (scancode == 0x39) {
         // Space
         putchar(' ');
-    }
-    else if (scancode < 128)
-    {
+    } else if (scancode < 128) {
         unsigned char ch = kbd_us[scancode];
         if (ch)
             putchar(ch); // In ký tự

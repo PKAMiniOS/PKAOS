@@ -10,8 +10,7 @@ static int cursor_offset = 0;
         - Ghi khoảng trắng lên toàn bộ vùng nhớ video
         - Đặt màu chữ là WHITE_ON_BLACK(trắng nền đen)
 */
-void clear_screen()
-{
+void clear_screen() {
     uint8_t *screen = (uint8_t *)VIDEO_ADDRESS;
     for (int i = 0; i < MAX_COLS * MAX_ROWS * 2; i += 2)
     {
@@ -25,8 +24,7 @@ void clear_screen()
             - Tự xử lý xuống dòng '\n'
             - Cập nhật vị trí con trỏ sau mỗi ký tự
 */
-void print(const char *str)
-{
+void print(const char *str) {
     int i = 0;
     while (str[i] != '\0')
     {
@@ -35,11 +33,9 @@ void print(const char *str)
     }
 }
 
-void putchar(char c)
-{
+void putchar(char c) {
     uint8_t *screen = (uint8_t *)VIDEO_ADDRESS;
-    if (c == '\n')
-    {
+    if (c == '\n') {
         int current_row = (cursor_offset / 2) / MAX_COLS;
         cursor_offset = (current_row + 1) * MAX_COLS * 2;
         return;
@@ -49,16 +45,13 @@ void putchar(char c)
     screen[cursor_offset + 1] = WHITE_ON_BLACK;
     cursor_offset += 2;
 
-    if (cursor_offset >= MAX_COLS * MAX_ROWS * 2)
-    {
+    if (cursor_offset >= MAX_COLS * MAX_ROWS * 2) {
         cursor_offset = 0;
     }
 }
 
-void backspace()
-{
-    if (cursor_offset >= 2)
-    {
+void backspace() {
+    if (cursor_offset >= 2) {
         cursor_offset -= 2;
         uint8_t *screen = (uint8_t *)VIDEO_ADDRESS;
         screen[cursor_offset] = ' ';

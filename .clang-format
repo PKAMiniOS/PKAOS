@@ -1,0 +1,15 @@
+---
+Language: C
+BasedOnStyle: Linux
+IndentWidth: 4
+UseTab: Never
+ColumnLimit: 100
+BreakBeforeBraces: Linux
+SpaceBeforeParens: ControlStatements
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: false
+PointerAlignment: Right
+ReflowComments: true
+SortIncludes: false
+...

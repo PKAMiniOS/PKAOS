@@ -17,8 +17,7 @@ void putchar(char c);
 void backspace();
 
 /* ================= GDT ================= */
-typedef struct
-{
+typedef struct {
     uint16_t limit_low;
     uint16_t base_low;
     uint8_t base_middle;
@@ -27,15 +26,13 @@ typedef struct
     uint8_t base_high;
 } __attribute__((packed)) gdt_entry_t;
 
-typedef struct
-{
+typedef struct {
     uint16_t limit;
     uint32_t base;
 } __attribute__((packed)) gdt_ptr_t;
 
 /* ================= IDT ================= */
-typedef struct
-{
+typedef struct {
     uint16_t base_lo;
     uint16_t sel;
     uint8_t always0;
@@ -43,15 +40,13 @@ typedef struct
     uint16_t base_hi;
 } __attribute__((packed)) idt_entry_t;
 
-typedef struct
-{
+typedef struct {
     uint16_t limit;
     uint32_t base;
 } __attribute__((packed)) idt_ptr_t;
 
 /* ================= REGISTERS ================= */
-typedef struct
-{
+typedef struct {
     uint32_t ds;
     uint32_t edi, esi, ebp, esp, ebx, edx, ecx, eax;
     uint32_t int_no, err_code;
