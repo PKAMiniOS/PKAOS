@@ -61,6 +61,7 @@ void print(const char* str) {
         i++;
     }
 }
+
 void putchar(char c) {
     uint8_t *screen = (uint8_t *)VIDEO_ADDRESS;
     if (c == '\n') {
