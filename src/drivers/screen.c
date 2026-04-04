@@ -49,8 +49,11 @@ void putchar(char c) {
         screen[cursor_offset + 1] = WHITE_ON_BLACK;
         cursor_offset += 2;
     }
-    // Chống tràn màn hình
-    if (cursor_offset >= MAX_COLS * MAX_ROWS * 2) cursor_offset = 0;
+    // Kiểm tra vượt quá màn hình, cuộn nếu cần
+    if (cursor_offset >= MAX_COLS * MAX_ROWS * 2) {
+        scroll();
+        cursor_offset = (MAX_ROWS - 1) * MAX_COLS * 2;
+    }
 }
 
 void backspace() {
