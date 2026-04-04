@@ -11,8 +11,9 @@ void kernel_main() {
 
     init_keyboard();
     asm volatile("sti");
-    
+
     while(1){
         asm volatile("hlt");
     }
 }
+

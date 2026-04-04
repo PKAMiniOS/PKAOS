@@ -65,4 +65,9 @@ void idt_set_gate(uint8_t num, uint32_t base, uint16_t sel, uint8_t flags);
 extern void gdt_flush(uint32_t gdt_ptr_addr);
 extern void idt_load(uint32_t idt_ptr_addr);
 
+/* stdlib */
+float my_sqrt(float x);
+float my_atof(const char *str);
+void ftoa(float num, char *str, int precision);
+
 #endif
