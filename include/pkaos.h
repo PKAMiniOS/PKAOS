@@ -13,6 +13,8 @@ void outb(uint16_t port, uint8_t data);
 /* Hàm điều khiển màn hình */
 void clear_screen();
 void print(const char* str);
+void putchar(char c);
+void backspace();
 
 /* ================= GDT ================= */
 typedef struct {
@@ -57,6 +59,9 @@ typedef struct {
 void gdt_init();
 void idt_init();
 void interrupt_init(); 
+void isr_init();
+void init_keyboard();
+void keyboard_handler(registers_t r);
 
 // IDT helper
 void idt_set_gate(uint8_t num, uint32_t base, uint16_t sel, uint8_t flags);
@@ -69,5 +74,14 @@ extern void idt_load(uint32_t idt_ptr_addr);
 float my_sqrt(float x);
 float my_atof(const char *str);
 void ftoa(float num, char *str, int precision);
+
+/* string */
+uint32_t strcmp(const uint8_t *s1, const uint8_t *s2);
+
+/* shell */
+void shell_init();
+void shell_handle_char(char ch);
+void shell_handle_backspace();
+void shell_handle_enter();
 
 #endif

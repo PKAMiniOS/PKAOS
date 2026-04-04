@@ -10,6 +10,7 @@ void kernel_main() {
     isr_init();
 
     init_keyboard();
+    shell_init();
     asm volatile("sti");
     
     while(1){
