@@ -12,7 +12,7 @@ void outb(uint16_t port, uint8_t data);
 
 /* Hàm điều khiển màn hình */
 void clear_screen();
-void print(const char *str);
+void print(const char* str);
 void putchar(char c);
 void backspace();
 
