@@ -44,6 +44,6 @@ void irq_handler(registers_t r) {
     outb(0x20, 0x20);
 
     if (r.int_no == 33) {
-        print("Keyboard interrupt!\n");
+        keyboard_handler(r);
     }
 }

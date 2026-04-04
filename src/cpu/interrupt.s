@@ -36,7 +36,7 @@ common_stub:
     mov gs, ax
 
     ; int_no
-    mov eax, [esp + 40]
+    mov eax, [esp + 36]
     cmp eax, 32
     jl .isr
 

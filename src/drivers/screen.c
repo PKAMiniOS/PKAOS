@@ -38,6 +38,30 @@ void print(const char* str) {
         i++;
     }
 }
+
+void putchar(char c) {
+    uint8_t *screen = (uint8_t *)VIDEO_ADDRESS;
+    if (c == '\n') {
+        int current_row = (cursor_offset / 2) / MAX_COLS;
+        cursor_offset = (current_row + 1) * MAX_COLS * 2;
+    } else {
+        screen[cursor_offset] = c;
+        screen[cursor_offset + 1] = WHITE_ON_BLACK;
+        cursor_offset += 2;
+    }
+    // Chống tràn màn hình
+    if (cursor_offset >= MAX_COLS * MAX_ROWS * 2) cursor_offset = 0;
+}
+
+void backspace() {
+    uint8_t *screen = (uint8_t *)VIDEO_ADDRESS;
+    if (cursor_offset >= 2) {
+        cursor_offset -= 2;
+        screen[cursor_offset] = ' ';
+        screen[cursor_offset + 1] = WHITE_ON_BLACK;
+    }
+}
+
 //Note1: - *screen : dùng con trỏ ở đây do đang làm việc trực 
 //                 tiếp với vùng nhớ phần cứng
 //       - Ta ép kiểu về uint8_t* để thao tác từng byte
