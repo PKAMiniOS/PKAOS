@@ -87,9 +87,6 @@ void backspace() {
     }
 }
 
-
-
-
 //Note1: - *screen : dùng con trỏ ở đây do đang làm việc trực 
 //                 tiếp với vùng nhớ phần cứng
 //       - Ta ép kiểu về uint8_t* để thao tác từng byte
