@@ -85,11 +85,6 @@ void shell_handle_backspace();
 void shell_handle_enter();
 
 /* memory */
-#define VIDEO_ADDRESS 0xB8000
-#define MAX_ROWS 25
-#define MAX_COLS 80
-#define WHITE_ON_BLACK 0x0F
-
 void scroll();
 void *memcpy(void *dest, const void *src, int n);
 
