@@ -1,11 +1,23 @@
 #include "pkaos.h"
-#include "../../include/pkaos.h"
 #define VIDEO_ADDRESS 0xB8000
 #define MAX_ROWS 25
 #define MAX_COLS 80
 #define WHITE_ON_BLACK 0x0F
 
 static int cursor_offset = 0;
+void scroll() {
+    uint8_t *screen = (uint8_t *)VIDEO_ADDRESS;
+    // Dịch toàn bộ màn hình lên 1 dòng
+    for (int i = 0; i < (MAX_ROWS - 1) * MAX_COLS * 2; i++) {
+        screen[i] = screen[i + MAX_COLS * 2];
+    }
+    // Xóa dòng cuối
+    int last = (MAX_ROWS - 1) * MAX_COLS * 2;
+    for (int i = last; i < MAX_ROWS * MAX_COLS * 2; i += 2) {
+        screen[i] = ' ';
+        screen[i + 1] = WHITE_ON_BLACK;
+    }
+}
 /* Hàm clear_screen() dùng để: 
         - Xóa toàn bộ nội dung trên màn hình VGA text mode
         - Ghi khoảng trắng lên toàn bộ vùng nhớ video
@@ -27,7 +39,6 @@ void clear_screen() {
 void print(const char* str) {
     uint8_t *screen = (uint8_t *)VIDEO_ADDRESS;
     int i = 0;
-
     while (str[i] != '\0') {
         if (str[i] == '\n') {
             int current_row = (cursor_offset / 2) / MAX_COLS;
@@ -39,7 +50,7 @@ void print(const char* str) {
             }
         } else {
             screen[cursor_offset] = str[i];
-            screen[cursor_offset + 1] = WHITE_ON_BLACK;
+            screen[cursor_offset+1] = WHITE_ON_BLACK;
             cursor_offset += 2;
 
             if (cursor_offset >= MAX_COLS * MAX_ROWS * 2) {
@@ -76,21 +87,7 @@ void backspace() {
     }
 }
 
-void scroll() {
-    uint8_t *screen = (uint8_t *)VIDEO_ADDRESS;
 
-    // Dịch toàn bộ màn hình lên 1 dòng
-    for (int i = 0; i < (MAX_ROWS - 1) * MAX_COLS * 2; i++) {
-        screen[i] = screen[i + MAX_COLS * 2];
-    }
-
-    // Xóa dòng cuối
-    int last = (MAX_ROWS - 1) * MAX_COLS * 2;
-    for (int i = last; i < MAX_ROWS * MAX_COLS * 2; i += 2) {
-        screen[i] = ' ';
-        screen[i + 1] = WHITE_ON_BLACK;
-    }
-}
 
 
 //Note1: - *screen : dùng con trỏ ở đây do đang làm việc trực 
