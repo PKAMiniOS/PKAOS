@@ -10,11 +10,9 @@ void kernel_main() {
     isr_init();
 
     init_keyboard();
-
     asm volatile("sti");
     
     while(1){
         asm volatile("hlt");
     }
-
 }
