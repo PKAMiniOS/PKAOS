@@ -9,6 +9,11 @@ SECTIONS {
     /* 2. Bắt đầu nạp từ mốc 1MB */
     . = 1M;
 
+    /* Multiboot header phải ở đầu tiên (trong 32KB đầu) */
+    .multiboot : {
+        *(.multiboot)
+    }
+
     /* 3. Phân lô 4KB để làm Segmentation (Phân đoạn - sử dụng mô hình Flat Memory) */
     /* .text là nơi chứa toàn bộ code, trong đó chạy bằng chuẩn multiboot, sau đó là text - tất cả các file code */
     /* rodata là read-only data, ví dụ như print("hello") thì hello là rodata */
@@ -16,7 +21,6 @@ SECTIONS {
     /* bss là mảng rỗng, hoặc các biến toàn cục chưa gán giá trị ví dụ như int a[1000]*/
 
     .text BLOCK(4K) : ALIGN(4K) {
-        *(.multiboot)
         *(.text)
     }
 
