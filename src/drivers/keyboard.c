@@ -26,17 +26,17 @@ void keyboard_handler(registers_t r) {
 
         if (scancode == 0x1C) {
             // Enter
-            putchar('\n');
+            shell_handle_enter();
         } else if (scancode == 0x0E) {
             // Backspace
-            backspace();
+            shell_handle_backspace();
         } else if (scancode == 0x39) {
             // Space
-            putchar(' ');
+            shell_handle_char(' ');
         } else if (scancode < 128) {
             unsigned char ch = kbd_us[scancode];
             if (ch)
-                putchar(ch); // In ký tự
+                shell_handle_char((char)ch); // Gửi ký tự vào shell
         }
     }
 }

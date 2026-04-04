@@ -28,7 +28,6 @@ void interrupt_init() {
         idt_set_gate(i + 32, (uint32_t)irq_stub_table[i], 0x08, 0x8E);
     }
 
-    print("Interrupts initialized.\n");
 }
 
 /* --- Exception handler --- */
