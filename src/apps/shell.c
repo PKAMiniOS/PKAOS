@@ -180,7 +180,7 @@ static void shell_execute(const char *line) {
 	}
 
 	if (strcmp((const uint8_t *)line, (const uint8_t *)"credit") == 0) {
-		print("Thanh vien nhom 12:\n");
+		print("Thanh vien nhom 16:\n");
 		print("  - Pham Quang Ha (nhom truong)\n");
 		print("  - Dao Ba Tuan Ngoc\n");
 		print("  - Ngo Tam Ngoc\n");
