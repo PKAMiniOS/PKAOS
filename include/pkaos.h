@@ -85,4 +85,8 @@ void shell_handle_char(char ch);
 void shell_handle_backspace();
 void shell_handle_enter();
 
+/* memory */
+void scroll();
+void *memcpy(void *dest, const void *src, int n);
+
 #endif

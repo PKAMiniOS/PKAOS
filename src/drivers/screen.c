@@ -5,6 +5,19 @@
 #define WHITE_ON_BLACK 0x0F
 
 static int cursor_offset = 0;
+void scroll() {
+    uint8_t *screen = (uint8_t *)VIDEO_ADDRESS;
+    // Dịch toàn bộ màn hình lên 1 dòng
+    for (int i = 0; i < (MAX_ROWS - 1) * MAX_COLS * 2; i++) {
+        screen[i] = screen[i + MAX_COLS * 2];
+    }
+    // Xóa dòng cuối
+    int last = (MAX_ROWS - 1) * MAX_COLS * 2;
+    for (int i = last; i < MAX_ROWS * MAX_COLS * 2; i += 2) {
+        screen[i] = ' ';
+        screen[i + 1] = WHITE_ON_BLACK;
+    }
+}
 /* Hàm clear_screen() dùng để: 
         - Xóa toàn bộ nội dung trên màn hình VGA text mode
         - Ghi khoảng trắng lên toàn bộ vùng nhớ video
@@ -30,10 +43,20 @@ void print(const char* str) {
         if (str[i] == '\n') {
             int current_row = (cursor_offset / 2) / MAX_COLS;
             cursor_offset = (current_row + 1) * MAX_COLS * 2;
+
+            if (cursor_offset >= MAX_ROWS * MAX_COLS * 2) {
+                scroll();
+                cursor_offset = (MAX_ROWS - 1) * MAX_COLS * 2;
+            }
         } else {
             screen[cursor_offset] = str[i];
             screen[cursor_offset+1] = WHITE_ON_BLACK;
             cursor_offset += 2;
+
+            if (cursor_offset >= MAX_COLS * MAX_ROWS * 2) {
+                scroll();
+                cursor_offset = (MAX_ROWS - 1) * MAX_COLS * 2;
+            }
         }
         i++;
     }
@@ -49,8 +72,11 @@ void putchar(char c) {
         screen[cursor_offset + 1] = WHITE_ON_BLACK;
         cursor_offset += 2;
     }
-    // Chống tràn màn hình
-    if (cursor_offset >= MAX_COLS * MAX_ROWS * 2) cursor_offset = 0;
+    // Kiểm tra vượt quá màn hình, cuộn nếu cần
+    if (cursor_offset >= MAX_COLS * MAX_ROWS * 2) {
+        scroll();
+        cursor_offset = (MAX_ROWS - 1) * MAX_COLS * 2;
+    }
 }
 
 void backspace() {
