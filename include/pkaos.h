@@ -60,6 +60,7 @@ void gdt_init();
 void idt_init();
 void interrupt_init(); 
 void isr_init();
+void fpu_init();
 void init_keyboard();
 void keyboard_handler(registers_t r);
 

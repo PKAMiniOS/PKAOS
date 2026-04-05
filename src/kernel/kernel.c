@@ -8,6 +8,7 @@ void kernel_main() {
     gdt_init();
     idt_init(); 
     isr_init();
+    fpu_init();
 
     init_keyboard();
     shell_init();
