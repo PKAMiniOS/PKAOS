@@ -1,4 +1,4 @@
-#include "../../include/pkaos.h"
+#include "pkaos.h"
 
 void *memcpy(void *dest, const void *src, int n) {
     uint8_t *d = (uint8_t *)dest;
